@@ -1,0 +1,360 @@
+INTRODUCTION TO THE COMMAND LINE INTERFACE: CLI----Graphical User Interface  GUI
+==========================================
+
+Linux is a free, open-source operating system (OS) based on Unix. It was first released by Linus Torvalds in 1991. 
+As an OS, Linux manages the hardware resources for the user and provides a set of tools for program development and execution.
+ One of Linux's core components is the Linux kernel, which handles process control, networking, access to peripherals,
+  and file system management.
+
+DISTRIBUTIONS:
+A linux Distro is an OS made form the linux kernel
+
+Popular Distributions:
+======================
+Ubuntu: Known for its user-friendliness and active community.
+Fedora: Features cutting-edge software and innovations.
+Debian: Praised for its stability and reliability.
+Arch Linux: Aimed at experienced users who want to customize their OS.
+CentOS: Preferred in enterprise environments for its stability and long-term support.
+
+Linux Architecture/ Linux File system:
+The Linux filesystem is a hierarchical structure where all files and directories are 
+located under the root directory, denoted by "/". This structure allows for efficient file storage, management, and access.
+
+
+in windows the root system is denoted as;
+C:\
+path to Users C:\Users\forch
+
+LINUX:
+/                      # root
+├── bin/               # Essential user command binaries
+├── etc/               # System configuration files
+├── home/
+│   ├── user1/
+│   └── user2/
+├── opt/               # Optional add-on applications
+├── lib/               # Essential shared libraries and kernel modules
+├── mnt/               # Temporary mount point
+├── dev/               # Device files
+├── var/
+│   ├── log/           # Log files
+│   └── mail/          # Mail server files
+├── proc/              # Process information pseudo-filesystem
+└── usr/
+    ├── bin/           # User binaries
+    ├── lib/           # Libraries for the binaries in /usr/bin/
+    ├── local/
+    │   ├── bin/       # Local binaries
+    │   └── lib/       # Local libraries
+    └── share/         # Architecture-independent data 
+
+To connect to  a linux machine, you need an SSH(Secure Shell) CLIENT
+
+VSCode: IDE Integrated Development Environment
+GitBash: ssh client
+
+Sublinetext
+PuTTy
+Mobaexterm
+Terminal
+Command Prompt  (Linux sub-system)  Windows
+Powershell   (Linux sub-system)     Windows
+
+HOW TO CONNECT TO A LINUX MACHINE:
+===================================
+Open an SSH client.
+
+Locate your private key file. The key used to launch this instance is linux-key.pem
+to locate the private key, run the command
+
+pwd: present working directory
+
+Run this command, if necessary, to ensure your key is not publicly viewable.
+
+chmod 400 "linux-key.pem"
+
+Connect to your instance using its Public DNS:
+
+ec2-16-171-155-181.eu-north-1.compute.amazonaws.com
+
+Example:
+
+ssh -i "linux-key.pem" ubuntu@ec2-16-171-155-181.eu-north-1.compute.amazonaws.com
+
+
+ssh: stands for the shell or intepreter
+-i: identity
+"linux-key.pem"  private key
+ubuntu: User
+2-16-171-155-181:  machine (Public IPV4)
+
+ssh -i linux-key.pem ubuntu@172.31.38.131
+
+
+$ ssh -i "linux-key.pem" ubuntu@ec2-16-171-155-181.eu-north-1.compute.amazonaws.com
+ssh: connect to host ec2-16-171-155-181.eu-north-1.compute.amazonaws.com port 22: Connection timed out
+
+
+AWS Security Group:
+port 22 is the default ssh port 
+ 80 is the HTTP port (Hyper Text Transfer Protocol) insecure
+ 443 HTTPS (Hyper Text Transfer Protocal Secure) use ssl certificate
+
+Assignment:
+
+- Create a t2-micro EC2-instane
+- create a private ssh key and save the key on your desktop
+- Connect to the insstance
+run the following commands on the instance  
+
+- sudo apt update
+- sudo apt install apache2
+- sudo systemctl start apache2
+- sudo systemctl enable apache2
+- sudo systemctl status apache2
+
+Result:
+  Access the default apache2 website on your browser
+
+
+
+
+
+
+
+
+To  connect to a server/ Mechine in AWS, you need the following:
+
+  1. Public IPV4 address
+  2. the Private ssh key
+  3. the username
+  4. ssh cleint
+
+ssh -i "linux-key.pem" ubuntu@16.171.155.181
+
+To establish connection between the Public and private ssh keys, they must correspond>
+the public ssh key is located at the cat ~/.ssh/authorized_keys
+
+1. ls: list
+===========
+The ls command is used to list files and directories in the current working directory. 
+This is going to be one of the most frequently used Linux commands you must know of.
+
+ls /: (list all dir and files in the home directory)
+
+2. pwd: present working directory
+=================================
+The pwd command allows you to print the current working directory on your terminal.
+cd if-pre-up.d/:
+ubuntu@ip-172-31-38-131:/etc/network/if-pre-up.d$: pwd
+/etc/network/if-pre-up.d:  
+
+3. cd: change directory
+======================
+this command helps to move around directory easily (you can not cd into files, only directories)
+
+ cd /etc/: this takes you forward into the /etc/ directory
+ cd /etc/network/if-up.d/: this moves you 3 steps forward
+ cd: this takes you back to the home directory
+ cd ..: this moved you only one step backward
+
+there is the / and ~ 
+1.: / is the home of a user )(ubuntu); 
+2.: ~ is the root directory (root)  the system does not allow you to connect as the root user to the server.
+this is becaus the root user has all admin permissions and can do everything
+
+4. mkdir: make directory;
+===========================
+ this command allows you tio ncreate directories from the terminal (cvalled folder in wondows)
+mkdir school:   this creates a  dir called school 
+mkdir school/secondary_school: this creates a dir called secondary_school inside of school
+  sudo apt  install tree 
+
+4. cp and mv: the copy and move
+==============================
+
+cp:  cp <source> <destination>
+
+ cp school/university/ higher_education/
+cp: -r not specified; omitting directory 'school/university/'
+
+-r: in reccursive mode: copy the dir and all its content
+
+mv: mv school/primary_school basic_education/
+- this moves the files and directories that already exists (if the source and destination exist)
+
+Note: there is another kind os mv that instead renames (the mv will rather rname if the source exist but the destination doesnt)
+
+5. rm: remove (file)
+   rmdir: (directory)
+=====================
+this command is used to delete files and directories.
+
+rmdir school/  (this will dleyte and empty dir )
+rmdir: failed to remove 'school/': Directory not empty
+rmdir -r school/
+rm -r school/  (this will delete a dir with content and its content reccursively)
+you can add -ri to get a prompt before approving the delete operation
+
+6. touch: create files 
+====================== 
+touch <file_Name>
+touch classes
+touch class_1 class_2 class_3
+
+7. clear: 
+=========
+  this command clears your terminal and provides a clean working space
+Ctl l:
+
+8. vi: 
+=======
+  this is the command to enter into a file and add content
+  you can only vi into files
+vi classes:
+- once insisd the file, you are in Read Mode 
+- to add content, press(i) on your keybaord
+- To leave INSERT mode, press esc on your keybaord 
+- to save and leave the file, press 
+     :wq and press enter
+9. cat: 
+=======
+  print the content of a file 
+  cat <file_Name>
+  cat classes
+10. echo: read out any input
+================================
+
+echo "welcome to the devops program"
+
+echo "my name is sani" > sani.sh
+
+this will create a file called sani.sh and write the echo input into it
+=======================================================================
+
+11. less: 
+========
+used when the output of any command is larger than the screen. so it bvreaks it down and you can move to the next page
+using the ENTER key 
+ls /bin | less:
+ this |  stands for the pipe command which means it uses the output of one command as an input to the next command
+ls /bin | less -SN:  This with number the output  
+
+12. man:
+=========
+the man command helps you to display a user manual about linux xommands
+ man ls: explain the ls command 
+13. uname:
+===========
+
+displays information a=about the system kernel
+Use uname -s to display the kernel name.
+Use uname -n to display the hostname.
+Use uname -r to display the kernel release.
+Use uname -v to display the kernel version.
+Use uname -m to display the machine hardware name.
+
+14. whoami:
+===========
+displays the current user in the system
+
+15. grep:  search
+==========
+searches for a particular string within a file
+
+ls /bin | grep sudo
+
+16. tail and head:
+==================
+the tail and head command prints out the first 10 or last 10 lines of any file 
+
+17. diff/comm/cmp: 
+  ================
+use to compare files
+
+18. sort:
+=========
+this command prints the  file output in alphabetical order
+
+19. ssh:
+========
+secure shell connection to a remote server
+
+ssh -i <key.pem> <username>@<public_IPV4>
+
+20. service:
+============
+
+used to start, stop, restart or check the status or services running on the server
+
+service ssh status:
+
+21. ps / kill:
+==============
+ps process
+kill terminate
+this command is usefule to free system memory
+zombie processes> simply occupy system resources for nothing
+
+22. df -h:
+==========
+to check the amout of disk space used and available on the file
+
+23. chmod and chown:
+====================
+they are used to modify the ownership and permissions of a file 
+chmod: change the permissions of a file
+chown: change the ownership of a file
+
+- in the linux OS there are three kinds os permission level
+
+
+- User          Group          Public        sani.sh  chmod 777
+  rwx            rwx            rwx
+  7              4              4
+
+-rw-  rw-   r-- 1 ubuntu ubuntu   16 Oct  1 17:43 class_1
+6      6     4          chmod 644
+ 7    0    0
+rwx   ---   ---
+
+Read       Write      Execute        devops.sh    
+   0        0            0
+ 4          2            1       =     7          421  
+
+24. useradd:
+============
+  to add a new user into the system
+  useradd user1 (creates a user without the home directory)
+  adduser (it create an entire user profile)
+
+25. infcofig:
+=============
+
+curl ifconfig.me: to see the public ip address
+The ifconfig command will give you the list of all the network interfaces 
+along with the IP addresses, MAC addresses and other information about the interface.
+
+26. wget: to download from tyhe internet
+
+27. sudo:
+=========
+“With great power, comes great responsibility”
+sudo adduser sani -aG sudoers:
+28. cal:
+  prints the calender of the current month
+
+cal
+    October 2024
+Su Mo Tu We Th Fr Sa       
+       1  2  3  4  5       
+ 6  7  8  9 10 11 12       
+13 14 15 16 17 18 19       
+20 21 22 23 24 25 26       
+27 28 29 30 31
+
+28. whereis/whatis:
+
+whatis sudo
+sudo (8)             - execute a command as another user
